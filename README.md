@@ -1,3 +1,5 @@
+💻Activity
+
 Using GitHub Copilot for Code Optimization and Uniformity:  Linter and Prettier Configuration, and Code Improvement 
 
 ## 🎯General Objective
