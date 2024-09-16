@@ -1,28 +1,28 @@
-import { Router } from "express";
+import { Router } from 'express';
 import {
-  create_task,
-  get_tasks,
-  update_task_status,
-} from "../controllers/taskController";
+  createTask,
+  getTasks,
+  updateTaskStatus,
+} from '../controllers/taskController';
 import {
-  create_admin,
-  create_project_manager,
-  create_user,
-  get_user_byid,
-  get_users,
-} from "../controllers/userController";
+  createAdmin,
+  createProjectManager,
+  createUser,
+  getUserById,
+  getUsers,
+} from '../controllers/userController';
 
 const router = Router();
 
-router.post("/users", create_user);
-  router.post("/users/admin", create_admin);
-router.post("/users/project_manager", create_project_manager);
+router.post('/users', createUser);
+router.post('/users/admin', createAdmin);
+router.post('/users/project_manager', createProjectManager);
 
-  router.get("/users", get_users);
-  router.get("/users/:id", get_user_byid);
+router.get('/users', getUsers);
+router.get('/users/:id', getUserById);
 
-router.post("/tasks", create_task);
-router.get("/tasks", get_tasks);
-router.patch("/tasks/:id", update_task_status);
+router.post('/tasks', createTask);
+router.get('/tasks', getTasks);
+router.patch('/tasks/:id', updateTaskStatus);
 
 export default router;

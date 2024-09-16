@@ -1,18 +1,17 @@
-import { AppDataSource } from "../data-source";
-import { User } from "../entities/User";
-import { UserType } from "../enums/userType";
+import { AppDataSource } from '../data-source';
+import { User } from '../entities/User';
+import { UserType } from '../enums/userType';
 
 export class UserService {
   private userRepository = AppDataSource.getRepository(User);
 
-  async create_user(name: string, email: string): Promise<User> {
-    var fuser = await this.userRepository.findOne({ where: { email } });
+  async createUser(name: string, email: string): Promise<User> {
+    const fuser = await this.userRepository.findOne({ where: { email } });
 
     if (fuser) {
-      throw new Error("User already exists");
+      throw new Error('User already exists');
     }
-    let userTypes = UserType.USER;
-    var user = this.userRepository.create({
+    const user = this.userRepository.create({
       name,
       email,
       usertype: UserType.USER,
@@ -20,15 +19,14 @@ export class UserService {
     return await this.userRepository.save(user);
   }
 
-  async create_admin(name: string, email: string): Promise<User> {
-    var fuser = await this.userRepository.findOne({ where: { email } });
+  async createAdmin(name: string, email: string): Promise<User> {
+    const fuser = await this.userRepository.findOne({ where: { email } });
 
     if (fuser) {
-      throw new Error("User exists");
+      throw new Error('User exists');
     }
 
-    let userTypes = UserType.ADMIN;
-    var user = this.userRepository.create({
+    const user = this.userRepository.create({
       name,
       email,
       usertype: UserType.ADMIN,
@@ -36,15 +34,14 @@ export class UserService {
     return await this.userRepository.save(user);
   }
 
-  async create_project_manager(name: string, email: string): Promise<User> {
-    var fuser = await this.userRepository.findOne({ where: { email } });
+  async createProjectManager(name: string, email: string): Promise<User> {
+    const fuser = await this.userRepository.findOne({ where: { email } });
 
     if (fuser) {
-      throw new Error("User exists");
+      throw new Error('User exists');
     }
 
-    let userTypes = UserType.PROJECT_MANAGER;
-    var user = this.userRepository.create({
+    const user = this.userRepository.create({
       name,
       email,
       usertype: UserType.PROJECT_MANAGER,
@@ -52,13 +49,8 @@ export class UserService {
     return await this.userRepository.save(user);
   }
 
-  async get_users(): Promise<User[]> {
-    var usrs = await this.userRepository.find({ relations: ["tasks"] });
-
-console.log(
-      "🚀 ~ file: userService.ts:43 ~ UserService ~ getusers ~ usrs:",
-      usrs
-    );
+  async getUsers(): Promise<User[]> {
+    const usrs = await this.userRepository.find({ relations: ['tasks'] });
 
     return usrs;
   }
@@ -66,7 +58,7 @@ console.log(
   async getUserById(id: number): Promise<User | null> {
     return await this.userRepository.findOne({
       where: { id },
-      relations: ["tasks"],
+      relations: ['tasks'],
     });
   }
 }

@@ -1,7 +1,8 @@
-import express from "express";
-import { AppDataSource } from "./data-source";
-import helloRoutes from "./routes/helloRoutes";
-import router from "./routes/routes";
+/* eslint-disable no-console */
+import express from 'express';
+import { AppDataSource } from './data-source';
+import helloRoutes from './routes/helloRoutes';
+import router from './routes/routes';
 
 AppDataSource.initialize()
   .then(() => {
@@ -12,12 +13,12 @@ AppDataSource.initialize()
 
     app.use(express.urlencoded({ extended: true }));
 
-    app.use("/api/hello", helloRoutes);
+    app.use('/api/hello', helloRoutes);
 
-    app.use("/api", router);
+    app.use('/api', router);
 
     app.listen(port, () => {
-      console.log("Server is running on http://localhost:" + port);
+      console.log('Server is running on http://localhost:' + port);
     });
   })
   .catch((error) => console.log(error));

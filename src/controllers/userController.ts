@@ -1,64 +1,51 @@
 import { Request, Response } from 'express';
 import { UserService } from '../services/userService';
-import { User } from '../entities/User';
-import { UserType } from '../enums/userType';
-import { Task } from '../entities/Task';
 
 const userService = new UserService();
 
-export const create_user = async (req: Request, res: Response) => {
-  console.log('-------------');
-  console.log(req.body);
-  console.log('-------------');
+export const createUser = async (req: Request, res: Response) => {
   const { name, email } = req.body;
 
   try {
-    const user = await userService.create_user(name, email);
+    const user = await userService.createUser(name, email);
     res.status(201).json(user);
   } catch (error) {
     res.status(500).json({ message: 'Failed', error });
   }
 };
 
-export const create_admin = async (req: Request, res: Response) => {
-  console.log('-------------');
-  console.log(req.body);
-  console.log('-------------');
+export const createAdmin = async (req: Request, res: Response) => {
   const { name, email } = req.body;
 
   try {
-    const user = await userService.create_admin(name, email);
+    const user = await userService.createAdmin(name, email);
     res.status(201).json(user);
   } catch (error) {
     res.status(500).json({ message: 'Failed', error });
   }
 };
 
-export const create_project_manager = async (req: Request, res: Response) => {
-  console.log('-------------');
-  console.log(req.body);
-  console.log('-------------');
-
+export const createProjectManager = async (req: Request, res: Response) => {
   const { name, email } = req.body;
 
   try {
-    const user = await userService.create_project_manager(name, email);
+    const user = await userService.createProjectManager(name, email);
     res.status(201).json(user);
   } catch (error) {
-    res.status(500).json({ message: 'Failed' });
+    res.status(500).json({ message: 'Failed', error });
   }
 };
 
-export const get_users = async (req: Request, res: Response) => {
+export const getUsers = async (req: Request, res: Response) => {
   try {
-    const users = await userService.get_users();
+    const users = await userService.getUsers();
     res.status(200).json(users);
-  } catch (error) {
+  } catch {
     res.status(500).json({ message: 'Fail' });
   }
 };
 
-export const get_user_byid = async (req: Request, res: Response) => {
+export const getUserById = async (req: Request, res: Response) => {
   const { id } = req.params;
 
   try {
@@ -68,6 +55,6 @@ export const get_user_byid = async (req: Request, res: Response) => {
     }
     res.status(200).json(user);
   } catch (error) {
-    res.status(500).json({ message: 'Fail' });
+    res.status(500).json({ message: 'Fail', error });
   }
 };
