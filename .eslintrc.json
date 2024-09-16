@@ -17,16 +17,11 @@
   "plugins": ["@typescript-eslint", "prettier"],
   "rules": {
     "prettier/prettier": "error",
-    "import/extensions": [
-      "error",
-      "ignorePackages",
-      {
-        "ts": "never",
-        "js": "never"
-      }
-    ],
-    "import/no-unresolved": "off",
-    "no-console": "off"
+    "no-console": "error",
+    "no-var": "error",
+    "camelcase": "error",
+    "no-unused-vars": "error",
+    "import/no-unresolved": "off"
   },
   "settings": {
     "import/resolver": {

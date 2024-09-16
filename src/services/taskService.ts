@@ -7,7 +7,7 @@ export class TaskService {
   private tr = AppDataSource.getRepository(Task);
   private ur = AppDataSource.getRepository(User);
 
-  updatetaskstatus = async (taskId: number, status: string) => {
+  update_task_status = async (taskId: number, status: string) => {
     const task = await this.tr.findOne({ where: { id: taskId } });
 
     if (!task) {
@@ -28,7 +28,7 @@ export class TaskService {
 await this.tr.save(task);
   };
 
-  async gettasks(): Promise<Task[]> {
+  async get_tasks(): Promise<Task[]> {
     return await this.tr.find({ relations: ["user"] });
   }
 

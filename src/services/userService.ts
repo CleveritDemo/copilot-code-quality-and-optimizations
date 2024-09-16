@@ -5,7 +5,7 @@ import { UserType } from "../enums/userType";
 export class UserService {
   private userRepository = AppDataSource.getRepository(User);
 
-  async createuser(name: string, email: string): Promise<User> {
+  async create_user(name: string, email: string): Promise<User> {
     var fuser = await this.userRepository.findOne({ where: { email } });
 
     if (fuser) {
@@ -52,7 +52,7 @@ export class UserService {
     return await this.userRepository.save(user);
   }
 
-  async getusers(): Promise<User[]> {
+  async get_users(): Promise<User[]> {
     var usrs = await this.userRepository.find({ relations: ["tasks"] });
 
 console.log(
