@@ -42,7 +42,7 @@ console.log("🚀 ~ file: taskService.ts:26 ~ TaskService ~ task:", task);
 
 };
 
-export const updatetaskstatus = async (req: Request, res: Response) => {
+export const update_task_status = async (req: Request, res: Response) => {
   const {id: taskId } = req.params;
   const { status } = req.body;
 
@@ -53,7 +53,7 @@ export const updatetaskstatus = async (req: Request, res: Response) => {
   );
 
   try {
-    await taskService.updatetaskstatus(Number(taskId), status);
+    await taskService.update_task_status(Number(taskId), status);
     res.status(200).json({ message: "Task updated successfully" });
   } catch (error) {
     res.status(500).json({ message: "Failed to update task", error });
@@ -62,7 +62,7 @@ export const updatetaskstatus = async (req: Request, res: Response) => {
 
 export const gettasks = async (req: Request, res: Response) => {
   try {
-    let tasks = await taskService.gettasks();
+    let tasks = await taskService.get_tasks();
     res.status(200).json(tasks);
   } catch (error) {
     res.status(500).json({ message: "Failed to retrieve tasks", error });

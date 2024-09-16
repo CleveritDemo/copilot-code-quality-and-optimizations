@@ -6,14 +6,14 @@ import { Task } from "../entities/Task";
 
 const userService = new UserService();
 
-export const createuser = async (req: Request, res: Response) => {
+export const create_user = async (req: Request, res: Response) => {
   console.log("-------------")
   console.log(req.body)
   console.log("-------------")
   const { name, email } = req.body;
 
   try {
-const user = await userService.createuser(name, email);
+const user = await userService.create_user(name, email);
     res.status(201).json(user);
   } catch (error) {
     res.status(500).json({ message: "Failed", error });
@@ -53,7 +53,7 @@ export const create_project_manager = async (req: Request, res: Response) => {
 
 export const getusers = async (req: Request, res: Response) => {
   try {
-var users = await userService.getusers();
+var users = await userService.get_users();
     res.status(200).json(users);
   } catch (error) {
     res.status(500).json({ message: "Fail" });
