@@ -7,22 +7,30 @@ export class TaskService {
   private tr = AppDataSource.getRepository(Task);
   private ur = AppDataSource.getRepository(User);
 
-  updateTaskStatus = async (taskId: number, status: string) => {
+  private async findTaskById(taskId: number): Promise<Task> {
     const task = await this.tr.findOne({ where: { id: taskId } });
-
     if (!task) {
       throw new Error('Task not found');
     }
+    return task;
+  }
 
-    if (status === TaskStatus.DONE) {
-      task.completedAt = new Date();
-    } else if (status === TaskStatus.IN_PROGRESS) {
-      task.startedAt = new Date();
-    } else if (status === TaskStatus.OPEN) {
-      task.startedAt = null;
-      task.completedAt = null;
-    } else {
-      throw new Error('Invalid status');
+  updateTaskStatus = async (taskId: number, status: string) => {
+    const task = await this.findTaskById(taskId);
+
+    switch (status) {
+      case TaskStatus.DONE:
+        task.completedAt = new Date();
+        break;
+      case TaskStatus.IN_PROGRESS:
+        task.startedAt = new Date();
+        break;
+      case TaskStatus.OPEN:
+        task.startedAt = null;
+        task.completedAt = null;
+        break;
+      default:
+        throw new Error('Invalid status');
     }
 
     await this.tr.save(task);
@@ -33,13 +41,7 @@ export class TaskService {
   }
 
   async getTaskById(id: number): Promise<Task> {
-    const task = await this.tr.findOne({ where: { id: id } });
-
-    if (!task) {
-      throw new Error('Task not found');
-    }
-
-    return task;
+    return await this.findTaskById(id);
   }
 
   async getTasksByUserId(id: number): Promise<Task[]> {
